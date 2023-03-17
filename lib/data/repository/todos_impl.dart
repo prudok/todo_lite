@@ -1,8 +1,13 @@
 import 'package:todolite/domain/model/todo.dart';
 
 import '../../domain/repository/todos.dart';
+import '../source/files.dart';
 
 class TodoRepositoryImpl extends TodosRepository {
+  final Files files;
+
+  TodoRepositoryImpl(this.files);
+
   @override
   Future<void> deleteAllTodos() {
     // TODO: implement deleteAllTodos
@@ -32,5 +37,4 @@ class TodoRepositoryImpl extends TodosRepository {
     // TODO: implement saveTodo
     throw UnimplementedError();
   }
-
 }
