@@ -9,7 +9,7 @@ import '../source/files.dart';
 
 class TodoRepositoryImpl extends TodosRepository {
   final Files files;
-  late final String path;
+  final path = '';
 
   TodoRepositoryImpl(this.files);
 
