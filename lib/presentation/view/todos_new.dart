@@ -6,7 +6,7 @@ class TodosNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('New todo')),
+      appBar: AppBar(title: const Text('New todo')),
     );
   }
 }

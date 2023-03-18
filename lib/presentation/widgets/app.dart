@@ -6,7 +6,7 @@ class TodosApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.green;
+    final color = Colors.purple;
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Todos',
@@ -25,7 +25,7 @@ class TodosApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
     );
   }
 }
