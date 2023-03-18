@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import './files.dart';
 
 class FilesMemoryImpl extends Files {

@@ -8,10 +8,10 @@ import '../../domain/repository/todos.dart';
 import '../source/files.dart';
 
 class TodoRepositoryImpl extends TodosRepository {
-  final Files files;
-  final path = '';
-
   TodoRepositoryImpl(this.files);
+  final Files files;
+  late final String path = 'Todos.json';
+
 
   @override
   Future<void> deleteAllTodos() async {
@@ -25,7 +25,7 @@ class TodoRepositoryImpl extends TodosRepository {
     final newTodos = todos.values.where((td) => td.id != todo.id).toList();
 
     await files.write(
-        path, jsonDecode(Todos(values: newTodos).toJson() as String));
+        path, jsonEncode(Todos(values: newTodos).toJson()));
   }
 
   @override
@@ -50,10 +50,9 @@ class TodoRepositoryImpl extends TodosRepository {
     final todos = await loadTodos();
 
     final newTodos = todos.values.where((td) => td.id != todo.id).toList();
-
     newTodos.add(todo);
 
     await files.write(
-        path, jsonDecode(Todos(values: newTodos).toJson() as String));
+        path, jsonEncode(Todos(values: newTodos).toJson()));
   }
 }

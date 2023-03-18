@@ -8,5 +8,5 @@ class GetTodosUseCaseImpl extends GetTodosUseCase {
   final TodosRepository todosRepository;
 
   @override
-  Future<Todos> execute() => todosRepository.loadTodos();
+  Future<Todos> execute() async => todosRepository.loadTodos();
 }
