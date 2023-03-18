@@ -6,7 +6,6 @@ class FilesMemoryImpl extends Files {
   @override
   Future<void> delete(String path) async {
     _files.remove(path);
-    throw UnimplementedError();
   }
 
   @override

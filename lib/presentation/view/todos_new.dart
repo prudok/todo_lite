@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shortid/shortid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todolite/presentation/viewmodel/module.dart';
 
+import '../viewmodel/module.dart';
 import '../../domain/model/todo.dart';
 import '../../domain/usecases/module.dart';
 
@@ -30,7 +30,7 @@ class _TodosNewState extends ConsumerState<TodosNew> {
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Form(
             key: _formKey,
             autovalidateMode: AutovalidateMode.always,
@@ -70,7 +70,7 @@ class _TodosNewState extends ConsumerState<TodosNew> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.save),
+        child: const Icon(Icons.add),
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();
@@ -102,7 +102,7 @@ extension on ScaffoldMessengerState {
     showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
       ),
     );
   }
