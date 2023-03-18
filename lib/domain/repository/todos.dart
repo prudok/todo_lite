@@ -1,7 +1,8 @@
 import '../model/todo.dart';
+import '../model/todos.dart';
 
 abstract class TodosRepository {
-  Future<List<Todo>> loadTodos();
+  Future<Todos> loadTodos();
 
   Future<void> saveTodo(Todo todo);
 
