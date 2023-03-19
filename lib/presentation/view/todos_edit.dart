@@ -1,26 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shortid/shortid.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../viewmodel/module.dart';
 import '../../domain/model/todo.dart';
-import '../../domain/usecases/module.dart';
+import '../viewmodel/module.dart';
+import '../widgets/extensions.dart';
 
-class TodosNew extends ConsumerStatefulWidget {
-  const TodosNew({super.key});
+class TodosEdit extends ConsumerStatefulWidget {
+  const TodosEdit({super.key, this.todoId});
+
+  final String? todoId;
 
   @override
-  ConsumerState<TodosNew> createState() => _TodosNewState();
+  ConsumerState<TodosEdit> createState() => _TodosEditState();
 }
 
-class _TodosNewState extends ConsumerState<TodosNew> {
+class _TodosEditState extends ConsumerState<TodosEdit> {
   final _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-  late final saveTodo = ref.read(saveTodoProvider);
-  late final todosList = ref.read(todoListModel);
+  late final model = ref.read(todoListModel);
   bool isCompleted = false;
+  bool edited = false;
+
+  void change() {
+    if (mounted) {
+      setState(() {
+        edited = !edited;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    titleController.addListener(change);
+    descriptionController.addListener(change);
+    if (widget.todoId != null) {
+      model.get(widget.todoId!).then((value) {
+        if (value != null) {
+          titleController.text = value.title;
+          descriptionController.text = value.description ?? '';
+          if (mounted) {
+            setState(() {
+              isCompleted = value.completed;
+            });
+          }
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +64,34 @@ class _TodosNewState extends ConsumerState<TodosNew> {
           child: Form(
             key: _formKey,
             autovalidateMode: AutovalidateMode.always,
+            onWillPop: () async {
+              if (edited) {
+                final confirmed = await showDialog<bool>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Discard changes?'),
+                    content: const Text(
+                      'Are you sure you want to discard changes?',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text('No'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        style: TextButton.styleFrom(
+                          foregroundColor: Theme.of(context).colorScheme.error,
+                        ),
+                        child: const Text('Yes'),
+                      ),
+                    ],
+                  ),
+                );
+                return confirmed ?? false;
+              }
+              return false;
+            },
             child: Column(
               children: [
                 TextFormField(
@@ -61,6 +119,7 @@ class _TodosNewState extends ConsumerState<TodosNew> {
                   onChanged: (value) {
                     if (mounted) {
                       isCompleted = value!;
+                      edited = true;
                     }
                   },
                 ),
@@ -84,25 +143,14 @@ class _TodosNewState extends ConsumerState<TodosNew> {
 
             final messenger = ScaffoldMessenger.of(context);
             final router = GoRouter.of(context);
-            await saveTodo.execute(todo);
+            await model.save(todo);
             messenger.toast('Todo saved!');
-            await todosList.loadTodos();
+            await model.loadTodos();
             if (router.canPop()) {
               router.pop();
             }
           }
         },
-      ),
-    );
-  }
-}
-
-extension on ScaffoldMessengerState {
-  void toast(String message) {
-    showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 1),
       ),
     );
   }

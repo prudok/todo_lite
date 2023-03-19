@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/model/todo.dart';
 import '../../domain/model/todos.dart';
 import '../../domain/usecases/module.dart';
-
-// final todoListProvider = ChangeNotifierProvider<ValueNotifier<Todos>>((ref) {
-//   return ValueNotifier(const Todos(values: []));
-// });
 
 class TodosStateNotifier extends StateNotifier<Todos> {
   TodosStateNotifier(this.ref) : super(const Todos(values: [])) {
@@ -19,10 +15,25 @@ class TodosStateNotifier extends StateNotifier<Todos> {
   Future<void> loadTodos() async {
     state = await getTodos.execute();
   }
+
+  Future<void> save(Todo todo) async {
+    await ref.read(saveTodoProvider).execute(todo);
+  }
+
+  Future<Todo?> get(String id) async {
+    return await ref.read(getTodoProvider).execute(id);
+  }
+
+  List<Todo> getCompletedTodos() {
+    return state.values.where((todo) => todo.completed).toList();
+  }
+
+  List<Todo> getActiveTodos() {
+    return state.values.where((todo) => !todo.completed).toList();
+  }
 }
 
-final todosListState = 
-    StateNotifierProvider<TodosStateNotifier, Todos>((ref) {
+final todosListState = StateNotifierProvider<TodosStateNotifier, Todos>((ref) {
   return TodosStateNotifier(ref);
 });
 
