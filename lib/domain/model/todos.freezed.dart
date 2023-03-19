@@ -90,8 +90,10 @@ class __$$_TodosCopyWithImpl<$Res> extends _$TodosCopyWithImpl<$Res, _$_Todos>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Todos implements _Todos {
-  const _$_Todos({final List<Todo> values = const []}) : _values = values;
+class _$_Todos extends _Todos {
+  const _$_Todos({final List<Todo> values = const []})
+      : _values = values,
+        super._();
 
   factory _$_Todos.fromJson(Map<String, dynamic> json) =>
       _$$_TodosFromJson(json);
@@ -137,8 +139,9 @@ class _$_Todos implements _Todos {
   }
 }
 
-abstract class _Todos implements Todos {
+abstract class _Todos extends Todos {
   const factory _Todos({final List<Todo> values}) = _$_Todos;
+  const _Todos._() : super._();
 
   factory _Todos.fromJson(Map<String, dynamic> json) = _$_Todos.fromJson;
 

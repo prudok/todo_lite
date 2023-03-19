@@ -56,7 +56,42 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New todo'),
+        title: widget.todoId == null
+            ? const Text('New Todo')
+            : const Text('Edit Todo'),
+        actions: [
+          if (widget.todoId != null)
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () async {
+                final confirmed= await showDialog<bool>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Delete Todo?'),
+                    content: const Text(
+                        'Are you sure you want to delete this todo?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: const Text('No'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        style: TextButton.styleFrom(
+                          foregroundColor: Theme.of(context).colorScheme.error,
+                        ),
+                        child: const Text('Yes'),
+                      )
+                    ],
+                  ),
+                );
+                if (confirmed == true) {
+                  model.delete(widget.todoId!);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+        ],
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
@@ -135,7 +170,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
             _formKey.currentState!.save();
 
             final todo = Todo(
-              id: shortid.generate(),
+              id: widget.todoId ?? shortid.generate(),
               title: titleController.text,
               description: descriptionController.text,
               completed: isCompleted,

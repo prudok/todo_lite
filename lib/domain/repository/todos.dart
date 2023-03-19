@@ -6,7 +6,7 @@ abstract class TodosRepository {
 
   Future<void> saveTodo(Todo todo);
 
-  Future<void> deleteTodo(Todo todo);
+  Future<void> deleteTodo(String id);
 
   Future<Todo?> getTodoById(String id);
 

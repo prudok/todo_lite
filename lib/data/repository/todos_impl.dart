@@ -12,20 +12,18 @@ class TodoRepositoryImpl extends TodosRepository {
   final Files files;
   late final String path = 'Todos.json';
 
-
   @override
   Future<void> deleteAllTodos() async {
     await files.delete(path);
   }
 
   @override
-  Future<void> deleteTodo(Todo todo) async {
+  Future<void> deleteTodo(String id) async {
     final todos = await loadTodos();
 
-    final newTodos = todos.values.where((td) => td.id != todo.id).toList();
+    final newTodos = todos.values.where((td) => td.id != id).toList();
 
-    await files.write(
-        path, jsonEncode(Todos(values: newTodos).toJson()));
+    await files.write(path, jsonEncode(Todos(values: newTodos).toJson()));
   }
 
   @override
@@ -49,10 +47,21 @@ class TodoRepositoryImpl extends TodosRepository {
   Future<void> saveTodo(Todo todo) async {
     final todos = await loadTodos();
 
-    final newTodos = todos.values.where((td) => td.id != todo.id).toList();
-    newTodos.add(todo);
-
-    await files.write(
-        path, jsonEncode(Todos(values: newTodos).toJson()));
+    final existingTodo =
+        todos.values.firstWhereOrNull((td) => td.id == todo.id);
+    if (existingTodo != null) {
+      final newTodo = existingTodo.copyWith(
+        title: todo.title,
+        description: todo.description,
+        completed: todo.completed,
+      );
+      final newTodos = todos.values.map((td) {
+        return td.id == todo.id ? newTodo : td;
+      }).toList();
+      await files.write(path, jsonEncode(Todos(values: newTodos).toJson()));
+    } else {
+      final newTodos = [...todos.values, todo];
+      await files.write(path, jsonEncode(Todos(values: newTodos).toJson()));
+    }
   }
 }

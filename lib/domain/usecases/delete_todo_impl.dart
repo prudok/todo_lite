@@ -1,5 +1,4 @@
 import 'delete_todo.dart';
-import '../model/todo.dart';
 import '../repository/todos.dart';
 
 class DeleteTodoUseCaseImpl extends DeleteTodoUseCase {
@@ -7,7 +6,7 @@ class DeleteTodoUseCaseImpl extends DeleteTodoUseCase {
   final TodosRepository todosRepository;
 
   @override
-  Future<void> execute(Todo todo) async {
-    await todosRepository.deleteTodo(todo);
+  Future<void> execute(String id) async {
+    await todosRepository.deleteTodo(id);
   }
 }

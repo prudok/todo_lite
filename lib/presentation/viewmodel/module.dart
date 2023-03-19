@@ -24,12 +24,9 @@ class TodosStateNotifier extends StateNotifier<Todos> {
     return await ref.read(getTodoProvider).execute(id);
   }
 
-  List<Todo> getCompletedTodos() {
-    return state.values.where((todo) => todo.completed).toList();
-  }
-
-  List<Todo> getActiveTodos() {
-    return state.values.where((todo) => !todo.completed).toList();
+  Future<void> delete(String id) async {
+    await ref.read(deleteTodoProvider).execute(id);
+    await loadTodos();
   }
 }
 
