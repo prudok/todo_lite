@@ -27,7 +27,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
   void change() {
     if (mounted) {
       setState(() {
-        edited = !edited;
+        edited = true;
       });
     }
   }

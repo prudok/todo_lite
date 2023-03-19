@@ -18,6 +18,15 @@ class TodosList extends ConsumerWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Todos'),
+        actions: [
+
+      IconButton(
+        onPressed: () {
+          context.go('/todos/new');
+        },
+        icon: const Icon(Icons.add),
+      ),
+        ],
       ),
       body: Column(
         children: [
@@ -40,12 +49,6 @@ class TodosList extends ConsumerWidget {
               ],
             ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.go('/todos/new');
-        },
-        child: const Icon(Icons.add),
       ),
     );
   }
