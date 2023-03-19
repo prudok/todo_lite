@@ -64,7 +64,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () async {
-                final confirmed= await showDialog<bool>(
+                final confirmed = await showDialog<bool>(
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Delete Todo?'),
@@ -164,7 +164,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.save_alt),
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();
@@ -184,6 +184,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
             if (router.canPop()) {
               router.pop();
             }
+            router.pushReplacement('/todos');
           }
         },
       ),

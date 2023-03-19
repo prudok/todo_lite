@@ -19,13 +19,12 @@ class TodosList extends ConsumerWidget {
         automaticallyImplyLeading: false,
         title: const Text('Todos'),
         actions: [
-
-      IconButton(
-        onPressed: () {
-          context.go('/todos/new');
-        },
-        icon: const Icon(Icons.add),
-      ),
+          IconButton(
+            onPressed: () {
+              context.pushReplacement('/todos/new');
+            },
+            icon: const Icon(Icons.add),
+          ),
         ],
       ),
       body: Column(
@@ -42,11 +41,13 @@ class TodosList extends ConsumerWidget {
                   ),
           ),
           if (completed.isNotEmpty)
-            ExpansionTile(
-              title: const Text('Completed'),
-              children: [
-                for (final todo in completed) TodoTile(todo: todo),
-              ],
+            SafeArea(
+              child: ExpansionTile(
+                title: const Text('Completed'),
+                children: [
+                  for (final todo in completed) TodoTile(todo: todo),
+                ],
+              ),
             ),
         ],
       ),
