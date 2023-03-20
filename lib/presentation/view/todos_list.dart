@@ -36,12 +36,16 @@ class TodosList extends ConsumerWidget {
             children: [
               Expanded(
                 child: active.isEmpty
-                    ? const Center(child: Text('No Todos found'))
+                    ? const Center(child: Text('No Todos'))
                     : ListView.builder(
                         itemCount: active.length,
                         itemBuilder: (context, index) {
                           final todo = active[index];
-                          return TodoTile(todo: todo);
+                          return Column(
+                            children: [
+                              TodoTile(todo: todo),
+                            ],
+                          );
                         },
                       ),
               ),
@@ -49,7 +53,18 @@ class TodosList extends ConsumerWidget {
                 ExpansionTile(
                   title: const Text('Completed'),
                   children: [
-                    for (final todo in completed) TodoTile(todo: todo),
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: 300,
+                        child: ListView.builder(
+                          itemCount: completed.length,
+                          itemBuilder: (context, index) {
+                            return TodoTile(todo: completed[index]);
+                          },
+                        ),
+                      ),
+                    ),
+                    // for (final todo in completed) TodoTile(todo: todo),
                   ],
                 ),
             ],

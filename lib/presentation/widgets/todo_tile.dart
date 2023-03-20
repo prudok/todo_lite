@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../domain/model/todo.dart';
 import '../viewmodel/module.dart';
+import './utils/app_text_styles.dart';
 
 class TodoTile extends ConsumerWidget {
   const TodoTile({super.key, required this.todo});
@@ -19,14 +20,19 @@ class TodoTile extends ConsumerWidget {
       },
       key: GlobalKey(),
       child: ListTile(
-        title: todo.completed == true
-            ? Text(
-                todo.title,
-                style: const TextStyle(decoration: TextDecoration.lineThrough),
-              )
-            : Text(todo.title),
+        title: Text(
+          todo.title,
+          style: todo.completed == true
+              ? headlineStyle.copyWith(decoration: TextDecoration.lineThrough)
+              : headlineStyle,
+        ),
         subtitle: todo.description != null && todo.description!.isNotEmpty
-            ? Text(todo.description!)
+            ? Text(
+                todo.description!,
+                style: todo.completed == true
+                    ? bodyStyle.copyWith(decoration: TextDecoration.lineThrough)
+                    : bodyStyle,
+              )
             : null,
         onTap: () {
           context.push('/todos/${todo.id}');
