@@ -12,21 +12,19 @@ class TodoTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListTile(
-      title: Text(todo.title),
-      subtitle: todo.description != null && todo.description!.isNotEmpty
-          ? Text(todo.description!)
-          : null,
-      onTap: () {
-        context.push('/todos/${todo.id}');
+    return Dismissible(
+      onDismissed: (direction) {
+        final newTodo = todo.copyWith(completed: !todo.completed);
+        ref.read(todosListModel).save(newTodo);
       },
-      trailing: Checkbox(
-        value: todo.completed,
-        onChanged: (value) {
-          if (value != null) {
-            final newTodo = todo.copyWith(completed: value);
-            ref.read(todosListModel).save(newTodo);
-          }
+      key: GlobalKey(),
+      child: ListTile(
+        title: Text(todo.title),
+        subtitle: todo.description != null && todo.description!.isNotEmpty
+            ? Text(todo.description!)
+            : null,
+        onTap: () {
+          context.push('/todos/${todo.id}');
         },
       ),
     );

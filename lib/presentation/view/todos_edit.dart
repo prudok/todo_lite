@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -60,42 +61,6 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
         title: widget.todoId == null
             ? const Text('New Todo')
             : const Text('Edit Todo'),
-        actions: [
-          if (widget.todoId != null)
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () async {
-                final router = GoRouter.of(context);
-                final confirmed = await showDialog<bool>(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Delete Todo?'),
-                    content: const Text(
-                        'Are you sure you want to delete this todo?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: const Text('No'),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        style: TextButton.styleFrom(
-                          foregroundColor: Theme.of(context).colorScheme.error,
-                        ),
-                        child: const Text('Yes'),
-                      )
-                    ],
-                  ),
-                );
-                if (confirmed == true) {
-                  model.delete(widget.todoId!);
-                  if (router.canPop()) {
-                    router.pop();
-                  }
-                }
-              },
-            ),
-        ],
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
@@ -129,7 +94,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
                 );
                 return confirmed ?? false;
               }
-              return false;
+              return true;
             },
             child: Column(
               children: [
@@ -140,7 +105,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter title';
+                      return 'Please enter a title';
                     } else {
                       return null;
                     }
@@ -152,25 +117,15 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
                     labelText: 'Description',
                   ),
                 ),
-                // CheckboxListTile(
-                //   title: const Text('Completed'),
-                //   value: isCompleted,
-                //   onChanged: (value) {
-                //     if (mounted) {
-                //       setState(() {
-                //         isCompleted = value!;
-                //         edited = true;
-                //       });
-                //     }
-                //   },
-                // ),
               ],
             ),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.save_alt),
+        child: widget.todoId == null
+            ? const Icon(Icons.add)
+            : const Icon(Icons.edit),
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();
