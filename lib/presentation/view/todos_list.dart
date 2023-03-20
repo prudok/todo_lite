@@ -19,14 +19,12 @@ class TodosList extends ConsumerWidget {
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
-            floating: true,
-            snap: true,
             automaticallyImplyLeading: false,
             title: const Text('Todos'),
             actions: [
               IconButton(
                 onPressed: () {
-                  context.pushReplacement('/todos/new');
+                  context.go('/todos/new');
                 },
                 icon: const Icon(Icons.add),
               ),
@@ -48,13 +46,11 @@ class TodosList extends ConsumerWidget {
                       ),
               ),
               if (completed.isNotEmpty)
-                SafeArea(
-                  child: ExpansionTile(
-                    title: const Text('Completed'),
-                    children: [
-                      for (final todo in completed) TodoTile(todo: todo),
-                    ],
-                  ),
+                ExpansionTile(
+                  title: const Text('Completed'),
+                  children: [
+                    for (final todo in completed) TodoTile(todo: todo),
+                  ],
                 ),
             ],
           ),

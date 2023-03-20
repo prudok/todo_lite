@@ -9,7 +9,6 @@ import '../widgets/extensions.dart';
 
 class TodosEdit extends ConsumerStatefulWidget {
   const TodosEdit({super.key, this.todoId});
-
   final String? todoId;
 
   @override
@@ -20,7 +19,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
   final _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-  late final model = ref.read(todoListModel);
+  late final model = ref.read(todosListModel);
   bool isCompleted = false;
   bool edited = false;
 
@@ -37,6 +36,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
     super.initState();
     titleController.addListener(change);
     descriptionController.addListener(change);
+
     if (widget.todoId != null) {
       model.get(widget.todoId!).then((value) {
         if (value != null) {
@@ -45,6 +45,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
           if (mounted) {
             setState(() {
               isCompleted = value.completed;
+              edited = false;
             });
           }
         }
@@ -64,6 +65,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () async {
+                final router = GoRouter.of(context);
                 final confirmed = await showDialog<bool>(
                   context: context,
                   builder: (context) => AlertDialog(
@@ -87,7 +89,9 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
                 );
                 if (confirmed == true) {
                   model.delete(widget.todoId!);
-                  Navigator.of(context).pop();
+                  if (router.canPop()) {
+                    router.pop();
+                  }
                 }
               },
             ),
@@ -148,16 +152,18 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
                     labelText: 'Description',
                   ),
                 ),
-                CheckboxListTile(
-                  title: const Text('Completed'),
-                  value: isCompleted,
-                  onChanged: (value) {
-                    if (mounted) {
-                      isCompleted = value!;
-                      edited = true;
-                    }
-                  },
-                ),
+                // CheckboxListTile(
+                //   title: const Text('Completed'),
+                //   value: isCompleted,
+                //   onChanged: (value) {
+                //     if (mounted) {
+                //       setState(() {
+                //         isCompleted = value!;
+                //         edited = true;
+                //       });
+                //     }
+                //   },
+                // ),
               ],
             ),
           ),
@@ -184,7 +190,6 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
             if (router.canPop()) {
               router.pop();
             }
-            router.pushReplacement('/todos');
           }
         },
       ),

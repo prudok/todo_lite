@@ -18,6 +18,7 @@ class TodosStateNotifier extends StateNotifier<Todos> {
 
   Future<void> save(Todo todo) async {
     await ref.read(saveTodoProvider).execute(todo);
+    await loadTodos();
   }
 
   Future<Todo?> get(String id) async {
@@ -34,6 +35,6 @@ final todosListState = StateNotifierProvider<TodosStateNotifier, Todos>((ref) {
   return TodosStateNotifier(ref);
 });
 
-final todoListModel = Provider<TodosStateNotifier>((ref) {
+final todosListModel = Provider<TodosStateNotifier>((ref) {
   return ref.watch(todosListState.notifier);
 });

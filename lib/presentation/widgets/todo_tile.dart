@@ -14,9 +14,9 @@ class TodoTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       title: Text(todo.title),
-      subtitle: Text(todo.description != null && todo.description!.isNotEmpty
-          ? todo.description.toString()
-          : ''),
+      subtitle: todo.description != null && todo.description!.isNotEmpty
+          ? Text(todo.description!)
+          : null,
       onTap: () {
         context.push('/todos/${todo.id}');
       },
@@ -25,7 +25,7 @@ class TodoTile extends ConsumerWidget {
         onChanged: (value) {
           if (value != null) {
             final newTodo = todo.copyWith(completed: value);
-            ref.read(todoListModel).save(newTodo);
+            ref.read(todosListModel).save(newTodo);
           }
         },
       ),
