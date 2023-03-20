@@ -15,41 +15,50 @@ class TodosList extends ConsumerWidget {
     final completed = todos.completed;
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Todos'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.pushReplacement('/todos/new');
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: active.isEmpty
-                ? const Center(child: Text('No Todos found'))
-                : ListView.builder(
-                    itemCount: active.length,
-                    itemBuilder: (context, index) {
-                      final todo = active[index];
-                      return TodoTile(todo: todo);
-                    },
-                  ),
-          ),
-          if (completed.isNotEmpty)
-            SafeArea(
-              child: ExpansionTile(
-                title: const Text('Completed'),
-                children: [
-                  for (final todo in completed) TodoTile(todo: todo),
-                ],
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            floating: true,
+            snap: true,
+            automaticallyImplyLeading: false,
+            title: const Text('Todos'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  context.pushReplacement('/todos/new');
+                },
+                icon: const Icon(Icons.add),
               ),
-            ),
+            ],
+          ),
         ],
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: active.isEmpty
+                    ? const Center(child: Text('No Todos found'))
+                    : ListView.builder(
+                        itemCount: active.length,
+                        itemBuilder: (context, index) {
+                          final todo = active[index];
+                          return TodoTile(todo: todo);
+                        },
+                      ),
+              ),
+              if (completed.isNotEmpty)
+                SafeArea(
+                  child: ExpansionTile(
+                    title: const Text('Completed'),
+                    children: [
+                      for (final todo in completed) TodoTile(todo: todo),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }

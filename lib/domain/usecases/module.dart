@@ -1,14 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'save_todo.dart';
-import 'get_todo.dart';
-import 'get_todos.dart';
-import 'delete_todo.dart';
-import 'get_todo_impl.dart';
-import 'save_todo_impl.dart';
-import 'get_todos_impl.dart';
-import 'delete_todo_impl.dart';
 import '../../data/repository/module.dart';
+import 'delete_todo/delete_todo.dart';
+import 'delete_todo/delete_todo_impl.dart';
+import 'get_todo/get_todo.dart';
+import 'get_todo/get_todo_impl.dart';
+import 'get_todos/get_todos.dart';
+import 'get_todos/get_todos_impl.dart';
+import 'save_todo/save_todo.dart';
+import 'save_todo/save_todo_impl.dart';
 
 final getTodosProvider = Provider<GetTodosUseCase>((ref) {
   return GetTodosUseCaseImpl(ref.read(todosProvider));

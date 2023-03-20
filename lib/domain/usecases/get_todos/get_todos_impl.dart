@@ -1,6 +1,6 @@
 import 'package:todolite/domain/repository/todos.dart';
 
-import '../model/todos.dart';
+import '../../model/todos.dart';
 import 'get_todos.dart';
 
 class GetTodosUseCaseImpl extends GetTodosUseCase {

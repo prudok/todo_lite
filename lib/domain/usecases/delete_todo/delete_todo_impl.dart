@@ -1,5 +1,5 @@
+import '../../repository/todos.dart';
 import 'delete_todo.dart';
-import '../repository/todos.dart';
 
 class DeleteTodoUseCaseImpl extends DeleteTodoUseCase {
   DeleteTodoUseCaseImpl(this.todosRepository);

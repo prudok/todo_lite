@@ -1,6 +1,6 @@
+import '../../model/todo.dart';
+import '../../repository/todos.dart';
 import 'get_todo.dart';
-import '../model/todo.dart';
-import '../repository/todos.dart';
 
 class GetTodoUseCaseImpl extends GetTodoUseCase {
   GetTodoUseCaseImpl(this.todosRepository);

@@ -21,13 +21,14 @@ class TodoTile extends ConsumerWidget {
         context.push('/todos/${todo.id}');
       },
       trailing: Checkbox(
-          value: todo.completed,
-          onChanged: (value) {
-            if (value != null) {
-              final newTodo = todo.copyWith(completed: value);
-              ref.read(todoListModel).save(newTodo);
-            }
-          }),
+        value: todo.completed,
+        onChanged: (value) {
+          if (value != null) {
+            final newTodo = todo.copyWith(completed: value);
+            ref.read(todoListModel).save(newTodo);
+          }
+        },
+      ),
     );
   }
 }

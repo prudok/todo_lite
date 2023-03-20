@@ -6,7 +6,18 @@ class TodosApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.purple;
+    //TODO: place in another folder(utils).
+    const color = Colors.purple;
+    final lightColorScheme = ColorScheme.fromSeed(
+      seedColor: color,
+      brightness: Brightness.light,
+    );
+    final darkColorScheme = ColorScheme.fromSeed(
+      seedColor: color,
+      brightness: Brightness.dark,
+    );
+    //
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Todos',
@@ -14,18 +25,21 @@ class TodosApp extends StatelessWidget {
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
       theme: ThemeData.light(useMaterial3: true).copyWith(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: color,
-          brightness: Brightness.light,
+        colorScheme: lightColorScheme,
+        dividerColor: Colors.transparent,
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: lightColorScheme.background,
+          contentTextStyle: const TextStyle(color: Colors.black),
         ),
       ),
       darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: color,
-          brightness: Brightness.dark,
-        ),
+        colorScheme: darkColorScheme,
+        dividerColor: Colors.transparent,
+        snackBarTheme: SnackBarThemeData(
+            backgroundColor: darkColorScheme.background,
+            contentTextStyle: const TextStyle(color: Colors.white)),
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
     );
   }
 }
