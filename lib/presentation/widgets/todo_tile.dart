@@ -19,7 +19,12 @@ class TodoTile extends ConsumerWidget {
       },
       key: GlobalKey(),
       child: ListTile(
-        title: Text(todo.title),
+        title: todo.completed == true
+            ? Text(
+                todo.title,
+                style: const TextStyle(decoration: TextDecoration.lineThrough),
+              )
+            : Text(todo.title),
         subtitle: todo.description != null && todo.description!.isNotEmpty
             ? Text(todo.description!)
             : null,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +6,7 @@ import 'package:shortid/shortid.dart';
 import '../../domain/model/todo.dart';
 import '../viewmodel/module.dart';
 import '../widgets/extensions.dart';
+import '../widgets/todo_form.dart';
 
 class TodosEdit extends ConsumerStatefulWidget {
   const TodosEdit({super.key, this.todoId});
@@ -96,29 +96,7 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
               }
               return true;
             },
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: titleController,
-                  decoration: const InputDecoration(
-                    labelText: 'Title',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a title';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                TextFormField(
-                  controller: descriptionController,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
-                  ),
-                ),
-              ],
-            ),
+            child: TodoForm(titleController: titleController, descriptionController: descriptionController),
           ),
         ),
       ),
