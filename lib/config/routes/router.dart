@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
-import '../view/todos_edit.dart';
-import '../view/todos_list.dart';
+import '../../presentation/view/todos_edit.dart';
+import '../../presentation/view/todos_list.dart';
 
 final router = GoRouter(
   initialLocation: '/todos',
