@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import './router.dart';
-import 'utils/themes/darkThemeData.dart';
-import 'utils/themes/ligthThemeData.dart';
+import '../../config/themes/darkThemeData.dart';
+import '../../config/themes/ligthThemeData.dart';
 
 class TodosApp extends StatelessWidget {
   const TodosApp({super.key});

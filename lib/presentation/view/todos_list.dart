@@ -64,7 +64,6 @@ class TodosList extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    // for (final todo in completed) TodoTile(todo: todo),
                   ],
                 ),
             ],

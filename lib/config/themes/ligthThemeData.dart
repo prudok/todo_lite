@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app_colors.dart';
+import '../../core/constants/app_colors.dart';
 
 final lightColorScheme = ColorScheme.fromSeed(
   seedColor: AppColors.primary,
