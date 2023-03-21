@@ -17,7 +17,7 @@ Todo Lite is designed in a minimalistic style to simplify writing everyday tasks
 - State managment with [flutter_riverpod](https://pub.dev/packages/flutter_riverpod)
 - Route managment with [go_router](https://pub.dev/packages/go_router)
 - [Freezed](https://pub.dev/packages/freezed), code generator for data-classes/unions/pattern-matching/cloning and [freezed_annotation](https://pub.dev/packages/freezed_annotation)
-- Unic Id with [shortId](https://pub.dev/packages/shortid)
+- Unique Id with [shortId](https://pub.dev/packages/shortid)
 - [Flutter_scripts](https://pub.dev/packages/flutter_scripts), [build_runner](https://pub.dev/packages/build_runner)
 # Overview
 | Home page | Create New Todo | Completed todos | Edit Todo | Dark mode |
