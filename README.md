@@ -7,7 +7,7 @@ What is a todoLite and how can it helps in daily life?
 - People have to chase you to get things done
 - You find it a struggle to keep to deadlines<br></br>
 
-Todo Lite is designed in a minimalistic style to simplify writing everyday tasks and tracking tasks already completed! It can solve all the problems above!
+TodoLite is designed in a minimalistic style to simplify writing everyday tasks and tracking tasks already completed! It can solve all the problems above!
 ## Features
 - Add your task by clicking the '+' button
 - Enter title and description
