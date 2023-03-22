@@ -7,7 +7,7 @@ final lightColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
 );
 
-ThemeData ligthThemeData() => ThemeData.light(useMaterial3: true).copyWith(
+ThemeData lightTheme() => ThemeData.light(useMaterial3: true).copyWith(
       colorScheme: lightColorScheme,
       dividerColor: Colors.transparent,
       snackBarTheme: SnackBarThemeData(

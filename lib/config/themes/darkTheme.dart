@@ -7,7 +7,7 @@ final darkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
 );
 
-ThemeData darkThemeData() => ThemeData.dark(useMaterial3: true).copyWith(
+ThemeData darkTheme() => ThemeData.dark(useMaterial3: true).copyWith(
       colorScheme: darkColorScheme,
       dividerColor: Colors.transparent,
       snackBarTheme: SnackBarThemeData(
