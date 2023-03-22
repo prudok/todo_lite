@@ -9,6 +9,7 @@ import '../widgets/extensions.dart';
 import '../widgets/todo_form.dart';
 
 class TodosEdit extends ConsumerStatefulWidget {
+  static const routeName = 'new';
   const TodosEdit({super.key, this.todoId});
   final String? todoId;
 

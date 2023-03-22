@@ -6,6 +6,7 @@ import '../viewmodel/module.dart';
 import '../widgets/todo_tile.dart';
 
 class TodosList extends ConsumerWidget {
+  static const routeName = '/todos';
   const TodosList({super.key});
 
   @override

@@ -4,14 +4,14 @@ import '../../presentation/view/todos_edit.dart';
 import '../../presentation/view/todos_list.dart';
 
 final router = GoRouter(
-  initialLocation: '/todos',
+  initialLocation: TodosList.routeName,
   routes: [
     GoRoute(
-      path: '/todos',
+      path: TodosList.routeName,
       builder: (context, state) => const TodosList(),
       routes: [
         GoRoute(
-          path: 'new',
+          path: TodosEdit.routeName,
           builder: (context, state) => const TodosEdit(),
         ),
         GoRoute(
