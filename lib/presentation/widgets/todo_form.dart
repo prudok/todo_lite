@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TodoForm extends ConsumerWidget {
-  const TodoForm({super.key, required this.titleController, required this.descriptionController});
+  const TodoForm(
+      {super.key,
+      required this.titleController,
+      required this.descriptionController});
   final TextEditingController titleController;
   final TextEditingController descriptionController;
 

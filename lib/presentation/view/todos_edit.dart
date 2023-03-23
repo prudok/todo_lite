@@ -97,7 +97,10 @@ class _TodosEditState extends ConsumerState<TodosEdit> {
               }
               return true;
             },
-            child: TodoForm(titleController: titleController, descriptionController: descriptionController),
+            child: TodoForm(
+              titleController: titleController,
+              descriptionController: descriptionController,
+            ),
           ),
         ),
       ),
