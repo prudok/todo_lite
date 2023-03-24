@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
+
 import './files.dart';
 
 class FilesMemoryImpl extends Files {
@@ -8,13 +12,40 @@ class FilesMemoryImpl extends Files {
     _files.remove(path);
   }
 
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/todos.json');
+  }
+
+  Future<File> writeCounter(String content) async {
+    final file = await _localFile;
+    return file.writeAsString(content);
+  }
+
+  Future<String?> readCounter() async {
+    try {
+      final file = await _localFile;
+      final contents = await file.readAsString();
+
+      return (contents);
+    } catch (e) {
+      print('It doesnt work');
+      return null;
+    }
+  }
+
   @override
   Future<String?> read(String path) async {
-    return _files[path];
+    return readCounter();
   }
 
   @override
   Future<void> write(String path, String content) async {
-    _files[path] = content;
+    writeCounter(content);
   }
 }
