@@ -22,30 +22,28 @@ class FilesMemoryImpl extends Files {
     return File('$path/todos.json');
   }
 
-  Future<File> writeCounter(String content) async {
+  Future<File> writeIntoLocalFile(String content) async {
     final file = await _localFile;
     return file.writeAsString(content);
   }
 
-  Future<String?> readCounter() async {
+  Future<String?> readFromLocalFileContent() async {
     try {
       final file = await _localFile;
       final contents = await file.readAsString();
-
       return (contents);
-    } catch (e) {
-      print('It doesnt work');
-      return null;
+    } catch (error) {
+      return ('Could not get data...');
     }
   }
 
   @override
   Future<String?> read(String path) async {
-    return readCounter();
+    return readFromLocalFileContent();
   }
 
   @override
   Future<void> write(String path, String content) async {
-    writeCounter(content);
+    writeIntoLocalFile(content);
   }
 }
