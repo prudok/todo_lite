@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import './extensions.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../domain/model/todo.dart';
 import '../viewmodel/module.dart';
@@ -37,6 +38,17 @@ class TodoTile extends ConsumerWidget {
         onTap: () {
           context.push('/todos/${todo.id}');
         },
+        trailing: todo.completed == true
+            ? IconButton(
+                icon: const Icon(Icons.remove),
+                onPressed: () {
+                  ref.read(todosListModel).delete(todo.id);
+
+                  final messenger = ScaffoldMessenger.of(context);
+                  messenger.toast('Todo deleted');
+                },
+              )
+            : null,
       ),
     );
   }
