@@ -27,7 +27,7 @@ class FilesMemoryImpl extends Files {
     return file.writeAsString(content);
   }
 
-  Future<String?> readFromLocalFileContent() async {
+  Future<String?> readFromLocalFile() async {
     try {
       final file = await _localFile;
       final contents = await file.readAsString();
@@ -39,7 +39,7 @@ class FilesMemoryImpl extends Files {
 
   @override
   Future<String?> read(String path) async {
-    return readFromLocalFileContent();
+    return readFromLocalFile();
   }
 
   @override
