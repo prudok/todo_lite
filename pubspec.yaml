@@ -21,6 +21,7 @@ dependencies:
   riverpod_annotation: ^2.0.2
   riverpod: ^2.3.2
   shortid: ^0.1.2
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:
