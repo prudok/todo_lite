@@ -14,8 +14,8 @@ TodoLite is designed in a minimalistic style to simplify writing everyday tasks 
 - Delete the task by swipe
 - Restore a task from completed tasks with a swipe
 ## Used packages
-- State managment with [flutter_riverpod](https://pub.dev/packages/flutter_riverpod)
-- Route managment with [go_router](https://pub.dev/packages/go_router)
+- State management with [flutter_riverpod](https://pub.dev/packages/flutter_riverpod)
+- Route management with [go_router](https://pub.dev/packages/go_router)
 - [Freezed](https://pub.dev/packages/freezed), code generator for data-classes/unions/pattern-matching/cloning and [freezed_annotation](https://pub.dev/packages/freezed_annotation)
 - Unique Id with [shortId](https://pub.dev/packages/shortid)
 - [Flutter_scripts](https://pub.dev/packages/flutter_scripts), [build_runner](https://pub.dev/packages/build_runner)
