@@ -1,4 +1,4 @@
-# Todolite
+# todo_lite
 ## Introduction
 What is a todoLite and how can it helps in daily life?
 
